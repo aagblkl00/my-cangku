@@ -59,4 +59,4 @@ npm run tauri build
 ## 开源与许可
 
 - 代码以 MIT 协议开源，见 `LICENSE`。
-- `frontend/src-tauri/icons/` 与 `frontend/public/brand/` 中的品牌图标、壁纸为项目自备素材，对外分发前请确认这些图片的使用权利。
+- `frontend/src-tauri/icons/` 与 `frontend/public/brand/` 中的品牌图标、壁纸为ChatGPT 生成的 AI 图像，由项目方持有使用权，可直接随项目分发。
