@@ -1,0 +1,20 @@
+[package]
+name = "automation-studio-desktop"
+version = "1.0.0"
+description = "AI-native testing workspace"
+authors = ["Lodestar"]
+edition = "2021"
+
+[lib]
+name = "automation_studio_desktop_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2.6.3", features = [] }
+
+[dependencies]
+tauri = { version = "2.11.5", features = ["tray-icon"] }
+tauri-plugin-shell = "2.3.6"
+tauri-plugin-single-instance = "2.4.4"
+tauri-plugin-window-state = "2.4.1"
+window-vibrancy = "0.8.0"

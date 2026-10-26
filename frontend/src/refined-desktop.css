@@ -1,0 +1,420 @@
+/* ============================================================
+   Lodestar · 桌面化精修覆盖层
+   只做覆盖，不改原样式表；需要回退时从 main.tsx 移除这一行 import 即可。
+   设计口径：Windows 桌面应用 —— 1px 硬边框、3px 圆角、零浮起阴影、
+   单一强调色、字号阶梯 15/13/11.5。
+   ============================================================ */
+
+/* ---------- 1. 色板与边框：把半像素边框换成 1px 实线 ---------- */
+:root{
+  --app-bg:#17191D;
+  --chrome-bg:#111316;
+  --side-bg:#15171B;
+  --panel-bg:#1C1F24;
+  --raised-bg:#23272D;
+  --input-bg:#141619;
+  --line:#2C3036;
+  --line-strong:#3B4148;
+  --text:#F1F3F6;
+  --text-soft:#B7BEC6;
+  --muted:#8A929C;
+  --faint:#69717B;
+  --cyan:#4FB3D9;
+  --green:#4CC38A;
+  --amber:#D9A24A;
+  --coral:#E16A6A;
+  --violet:#8E7DF8;
+  --radius:3px;
+}
+
+/* ---------- 原生桌面化：字体与滚动条 ---------- */
+:root {
+  font-family: "Segoe UI Variable Text", "Segoe UI", "Microsoft YaHei UI", "Microsoft YaHei", system-ui, sans-serif;
+}
+::-webkit-scrollbar { width: 12px; height: 12px; }
+::-webkit-scrollbar-thumb { background: #4a5058; border: 3px solid transparent; background-clip: content-box; border-radius: 6px; }
+::-webkit-scrollbar-thumb:hover { background-color: #5a616a; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-corner { background: transparent; }
+
+/* ---------- Windows 11 风格窗口控制按钮 ---------- */
+.native-window-controls { align-self: stretch; display: flex; margin: 0 -8px 0 4px; }
+.native-window-controls button { width: 46px; height: 100%; border-radius: 0; }
+.native-window-controls button:hover { background: rgba(255, 255, 255, .09); color: var(--text); }
+.native-window-controls button:active { background: rgba(255, 255, 255, .16); }
+.native-window-controls button.close:hover { background: #c42b1c; color: #fff; }
+.native-window-controls button.close:active { background: #b91d0f; color: #fff; }
+.window-glyph.minimize::before { right: 2px; bottom: 3px; left: 2px; height: 1px; }
+
+/* 顶栏 */
+.toolbar.native-titlebar{
+  background:var(--chrome-bg)!important;
+  border-bottom:1px solid var(--line)!important;
+  box-shadow:none!important;
+  height:36px!important;
+}
+.toolbar.native-titlebar .desktop-menu button{
+  color:var(--text-soft)!important;
+  font-size:12.5px!important;
+  border-radius:var(--radius)!important;
+  padding:0 9px!important;
+  height:26px!important;
+}
+.toolbar.native-titlebar .desktop-menu button:hover{
+  background:var(--raised-bg)!important;
+  color:#fff!important;
+}
+.klein-brand strong{font-size:12.5px!important;letter-spacing:0!important;color:var(--text)!important}
+.klein-brand i.online{color:var(--muted)!important;font-size:11px!important}
+
+/* 命令框 */
+.command-trigger{
+  background:var(--input-bg)!important;
+  border:1px solid var(--line)!important;
+  border-radius:var(--radius)!important;
+  color:var(--faint)!important;
+  height:26px!important;
+}
+.command-trigger:hover{border-color:var(--line-strong)!important;color:var(--text-soft)!important}
+.command-trigger kbd{
+  background:transparent!important;
+  border:1px solid var(--line)!important;
+  color:var(--faint)!important;
+  border-radius:2px!important;
+  font-size:10px!important;
+  padding:0 4px!important;
+}
+
+/* 顶部按钮 */
+.toolbar-btn,.icon-button{
+  border:1px solid var(--line)!important;
+  border-radius:var(--radius)!important;
+  background:var(--panel-bg)!important;
+  color:var(--text-soft)!important;
+}
+.toolbar-btn:hover,.icon-button:hover{
+  background:var(--raised-bg)!important;
+  border-color:var(--line-strong)!important;
+  color:#fff!important;
+}
+.toolbar-btn.active,.toolbar-btn.primary{
+  background:rgba(142,125,248,.16)!important;
+  border-color:rgba(142,125,248,.42)!important;
+  color:#C9BEFF!important;
+}
+
+/* ---------- 2. 左侧主栏 ---------- */
+.product-sidebar{
+  background:var(--side-bg)!important;
+  border-right:1px solid var(--line)!important;
+  box-shadow:none!important;
+  padding:10px 8px 8px!important;
+}
+.product-sidebar-head{
+  border-bottom:1px solid var(--line)!important;
+  padding:0 4px 8px!important;
+  margin-bottom:8px!important;
+}
+.project-chip{
+  border:1px solid var(--line)!important;
+  border-radius:var(--radius)!important;
+  background:var(--panel-bg)!important;
+  padding:7px 8px!important;
+}
+.project-chip:hover{border-color:var(--line-strong)!important;background:var(--raised-bg)!important}
+.project-chip strong,.project-chip b{font-size:12.5px!important;color:var(--text)!important}
+.project-chip span,.project-chip small{font-size:11px!important;color:var(--faint)!important}
+
+.product-nav-item{
+  border-radius:var(--radius)!important;
+  border-left:2px solid transparent!important;
+  font-size:12.5px!important;
+  color:var(--text-soft)!important;
+  padding:0 9px!important;
+  margin-bottom:1px!important;
+}
+.product-nav-item:hover{background:var(--panel-bg)!important;color:var(--text)!important}
+.product-nav-item.active{
+  background:var(--raised-bg)!important;
+  border-left-color:var(--violet)!important;
+  color:#fff!important;
+}
+.product-nav-item.active .nav-icon,.product-nav-item.active svg{color:var(--violet)!important}
+
+.pipeline-summary{
+  border:1px solid var(--line)!important;
+  border-radius:var(--radius)!important;
+  background:var(--panel-bg)!important;
+  padding:8px!important;
+}
+.pipeline-summary header{font-size:11px!important;color:var(--muted)!important}
+
+/* ---------- 3. AI 工作区 ---------- */
+.ai-workbench,.ai-sidebar-body{
+  background:var(--app-bg)!important;
+}
+.ai-activity-bar{
+  background:var(--chrome-bg)!important;
+  border-right:1px solid var(--line)!important;
+}
+.ai-sidebar-head{
+  background:var(--chrome-bg)!important;
+  border-bottom:1px solid var(--line)!important;
+  height:40px!important;
+}
+.ai-title-group strong,.ai-title-group b{font-size:13px!important;color:var(--text)!important}
+.ai-runtime-dot.local{color:var(--green)!important}
+
+.ai-session-bar{
+  border-bottom:1px solid var(--line)!important;
+  background:transparent!important;
+  padding:6px 12px!important;
+}
+.ai-session-copy strong{font-size:12.5px!important;color:var(--text)!important}
+.ai-session-copy span{font-size:11px!important;color:var(--faint)!important}
+.ai-evidence-trigger{
+  border:1px solid var(--line)!important;
+  border-radius:var(--radius)!important;
+  background:var(--panel-bg)!important;
+  color:var(--text-soft)!important;
+  font-size:11.5px!important;
+}
+.ai-evidence-trigger:hover{border-color:var(--line-strong)!important;background:var(--raised-bg)!important}
+
+/* 上下文条 */
+.ai-context-shell{
+  background:var(--panel-bg)!important;
+  border:1px solid var(--line)!important;
+  border-radius:var(--radius)!important;
+  margin:8px 12px 0!important;
+}
+.ai-context-summary span,.ai-context-summary strong{font-size:11.5px!important}
+.ai-context-bar span{
+  font-family:"Cascadia Mono",Consolas,monospace!important;
+  font-size:11px!important;
+  border:1px solid var(--line)!important;
+  border-radius:2px!important;
+  background:var(--input-bg)!important;
+  color:var(--text-soft)!important;
+}
+.ai-context-bar span.problem{
+  border-color:rgba(217,162,74,.42)!important;
+  background:rgba(217,162,74,.13)!important;
+  color:#E6C08A!important;
+}
+
+/* ---------- 4. 空态与建议入口 ---------- */
+/* 空状态收成一张卡片：有边界，不然整屏是一块死黑 */
+.ai-command-center{
+  max-width:720px!important;
+  border:1px solid var(--line-strong)!important;
+  border-radius:var(--radius)!important;
+  background:var(--panel-bg)!important;
+  padding:30px 28px 26px!important;
+  margin-top:-24px!important;
+}
+.ai-welcome h1,.ai-welcome h2{
+  font-size:19px!important;
+  font-weight:500!important;
+  color:var(--text)!important;
+  letter-spacing:-.01em!important;
+}
+.ai-welcome p{font-size:12.5px!important;color:var(--muted)!important}
+.ai-quick-grid{gap:8px!important;margin-top:20px!important}
+.ai-quick-grid button,.ai-quick-grid a{
+  border:1px solid var(--line)!important;
+  border-radius:var(--radius)!important;
+  background:var(--input-bg)!important;
+  color:var(--text-soft)!important;
+  font-size:12px!important;
+  padding:7px 11px!important;
+}
+.ai-quick-grid button:hover,.ai-quick-grid a:hover{
+  border-color:rgba(142,125,248,.5)!important;
+  background:rgba(142,125,248,.12)!important;
+  color:#fff!important;
+}
+
+/* 去掉与顶栏重复的品牌标识，只留运行状态点和右侧操作 */
+.ai-sidebar-head{height:34px!important;border-bottom:1px solid var(--line)!important}
+.ai-title-group .ai-title-mark{display:none!important}
+.ai-title-group > div{display:none!important}
+.ai-title-group{gap:8px!important}
+
+/* 会话条压紧 */
+.ai-session-bar{height:34px!important;padding:0 14px!important}
+.ai-session-bar .ai-session-copy{gap:6px!important}
+
+/* ---------- 5. 输入区 ---------- */
+.ai-composer-surface{
+  border:1px solid var(--line-strong)!important;
+  border-radius:var(--radius)!important;
+  background:var(--panel-bg)!important;
+  box-shadow:none!important;
+  transition:border-color .15s ease!important;
+}
+.ai-composer-surface:focus-within{
+  border-color:rgba(142,125,248,.62)!important;
+  box-shadow:0 0 0 2px rgba(142,125,248,.14)!important;
+}
+.ai-composer-surface textarea{
+  font-size:13px!important;
+  line-height:1.6!important;
+  color:var(--text)!important;
+  padding:9px 11px 0!important;
+}
+.ai-composer-surface textarea::placeholder{color:var(--faint)!important}
+.ai-composer-footer{
+  border-top:1px solid var(--line)!important;
+  padding:4px 8px 6px!important;
+}
+.ai-composer-footer button{
+  border:1px solid var(--line)!important;
+  border-radius:var(--radius)!important;
+  background:var(--input-bg)!important;
+  color:var(--text-soft)!important;
+  font-size:11.5px!important;
+  height:24px!important;
+}
+.ai-composer-footer button:hover{border-color:var(--line-strong)!important;background:var(--raised-bg)!important;color:#fff!important}
+.ai-composer-footer button.primary{
+  background:var(--violet)!important;
+  border-color:var(--violet)!important;
+  color:#fff!important;
+}
+
+/* ---------- 6. 消息区 ---------- */
+.ai-chat-messages{background:var(--app-bg)!important}
+.ai-chat-messages .ai-message,
+.ai-chat-messages [class*="message"]{font-size:13px!important;line-height:1.7!important}
+
+/* ---------- 7. 表格 / 卡片等通用面 ---------- */
+.studio-shell .panel,.studio-shell .card,.studio-shell .workspace-panel{
+  border:1px solid var(--line)!important;
+  border-radius:var(--radius)!important;
+  background:var(--panel-bg)!important;
+  box-shadow:none!important;
+}
+
+/* ---------- 8. 滚动条：桌面式，带轨道 ---------- */
+.studio-shell *::-webkit-scrollbar{width:12px;height:12px}
+.studio-shell *::-webkit-scrollbar-track{background:var(--chrome-bg)}
+.studio-shell *::-webkit-scrollbar-thumb{
+  background:#3A4048;
+  border:3px solid var(--chrome-bg);
+  border-radius:0;
+}
+.studio-shell *::-webkit-scrollbar-thumb:hover{background:#4A515A}
+
+/* ============================================================
+   9. 设置中心
+   ============================================================ */
+
+/* 统一强调色：青色改为紫色，绿色仍只表示健康/成功 */
+:root{--cyan:#8E7DF8}
+
+/* 头部：去掉重复的 eyebrow 小字，压成标题 + 一句说明 */
+.settings-workspace{padding:16px 20px 12px!important}
+.settings-workspace-head .eyebrow{display:none!important}
+.settings-workspace-head h1{
+  font-size:19px!important;font-weight:500!important;letter-spacing:-.01em!important;
+  color:var(--text)!important;margin:0!important;
+}
+.settings-workspace-head p{font-size:12px!important;color:var(--muted)!important;margin-top:4px!important}
+.settings-head-meta{gap:6px!important}
+.settings-head-meta span{
+  height:26px!important;padding:0 10px!important;gap:6px!important;
+  border:1px solid var(--line)!important;border-radius:var(--radius)!important;
+  background:var(--panel-bg)!important;color:var(--text-soft)!important;font-size:11.5px!important;
+}
+.settings-workspace-head{margin-bottom:12px!important}
+
+/* 搜索框 */
+.settings-search{
+  border:1px solid var(--line)!important;border-radius:var(--radius)!important;
+  background:var(--input-bg)!important;height:30px!important;
+}
+.settings-search input{font-size:12.5px!important;color:var(--text)!important}
+.settings-search input::placeholder{color:var(--faint)!important}
+.settings-search kbd{
+  border:1px solid var(--line)!important;border-radius:2px!important;
+  background:transparent!important;color:var(--faint)!important;font-size:10px!important;
+}
+
+/* 左侧分类导航：与主界面一致的选中样式 */
+.settings-workspace-body{gap:12px!important;margin-top:12px!important}
+.settings-category-nav{
+  border:1px solid var(--line)!important;border-radius:var(--radius)!important;
+  background:var(--panel-bg)!important;padding:6px!important;gap:1px!important;
+}
+.settings-category-nav button{
+  border:1px solid transparent!important;
+  border-left:2px solid transparent!important;
+  border-radius:var(--radius)!important;
+  background:transparent!important;
+  color:var(--text-soft)!important;
+  padding:8px 9px!important;
+}
+.settings-category-nav button:hover{background:var(--input-bg)!important;color:var(--text)!important}
+.settings-category-nav button.active{
+  background:var(--raised-bg)!important;
+  border-color:var(--line)!important;
+  border-left-color:var(--violet)!important;
+  color:#fff!important;
+}
+.settings-category-nav button.active svg{color:var(--violet)!important}
+.settings-category-nav button span strong,
+.settings-category-nav button span b{font-size:12.5px!important}
+.settings-category-nav button span small{font-size:11px!important;color:var(--faint)!important}
+
+/* 右侧内容面板 */
+.settings-detail-head{padding:0 0 10px!important}
+.settings-detail-head strong{font-size:15px!important;color:var(--text)!important}
+.settings-detail-head small,.settings-detail-head span{font-size:12px!important;color:var(--muted)!important}
+.settings-panel{
+  border:1px solid var(--line)!important;
+  border-radius:var(--radius)!important;
+  background:var(--panel-bg)!important;
+  box-shadow:none!important;
+}
+.settings-section-head{
+  border-bottom:1px solid var(--line)!important;
+  padding:10px 12px!important;
+}
+.settings-section-head strong{font-size:13px!important;color:var(--text)!important}
+.settings-section-head small{font-size:11.5px!important;color:var(--faint)!important}
+.settings-section-icon{
+  border-radius:var(--radius)!important;
+  border:1px solid var(--line)!important;
+  background:var(--input-bg)!important;
+  color:var(--violet)!important;
+}
+.settings-status{
+  border-radius:2px!important;font-size:11px!important;
+  border:1px solid var(--line)!important;background:var(--input-bg)!important;
+}
+.settings-status.ready{color:#7FD8B0!important;border-color:rgba(76,195,138,.34)!important;background:rgba(76,195,138,.12)!important}
+
+/* 表单控件 */
+.ai-settings-form input,.ai-settings-form textarea,
+.settings-panel input,.settings-panel textarea,.settings-panel select{
+  border:1px solid var(--line)!important;
+  border-radius:var(--radius)!important;
+  background:var(--input-bg)!important;
+  color:var(--text)!important;
+  font-size:12.5px!important;
+}
+.ai-settings-form input:focus,.settings-panel input:focus,.settings-panel textarea:focus{
+  border-color:rgba(142,125,248,.62)!important;
+  box-shadow:0 0 0 2px rgba(142,125,248,.13)!important;
+  outline:none!important;
+}
+.settings-panel label,.settings-panel .field-label{font-size:11.5px!important;color:var(--muted)!important}
+.settings-block-title{font-size:11.5px!important;color:var(--muted)!important;letter-spacing:.02em!important}
+
+/* 设置项行 */
+.settings-field{
+  border-top:1px solid var(--line)!important;
+  padding:10px 12px!important;
+}
+.settings-field:hover{background:var(--raised-bg)!important}

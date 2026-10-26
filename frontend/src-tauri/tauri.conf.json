@@ -1,0 +1,71 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Lodestar",
+  "mainBinaryName": "Lodestar",
+  "version": "1.0.0",
+  "identifier": "com.klein.desktop",
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "devUrl": "http://127.0.0.1:5173",
+    "beforeBuildCommand": "npm run build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "label": "main",
+        "title": "Lodestar",
+        "width": 1320,
+        "height": 820,
+        "minWidth": 1080,
+        "minHeight": 700,
+        "center": true,
+        "decorations": false,
+        "visible": false,
+        "fullscreen": false,
+        "maximized": false,
+        "resizable": true,
+        "zoomHotkeysEnabled": false,
+        "dragDropEnabled": true
+      },
+      {
+        "label": "splashscreen",
+        "title": "Lodestar",
+        "url": "index.html?splash=1",
+        "width": 520,
+        "height": 760,
+        "center": true,
+        "decorations": false,
+        "visible": true,
+        "fullscreen": false,
+        "maximized": false,
+        "resizable": false,
+        "zoomHotkeysEnabled": false,
+        "alwaysOnTop": true,
+        "skipTaskbar": true,
+        "shadow": true
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": ["nsis"],
+    "icon": ["icons/32x32.png", "icons/128x128.png", "icons/128x128@2x.png", "icons/icon.ico"],
+    "externalBin": ["binaries/lodestar-sidecar"],
+    "resources": {
+      "../../../data/browsers/": "browsers/"
+    },
+    "windows": {
+      "nsis": {
+        "installMode": "currentUser",
+        "displayLanguageSelector": false,
+        "languages": ["SimpChinese"],
+        "installerIcon": "icons/icon.ico",
+        "uninstallerIcon": "icons/icon.ico"
+      }
+    }
+  }
+}

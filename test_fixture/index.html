@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><title>Automation Studio Fixture</title></head>
+<body>
+  <main>
+    <h1>本地自动化验证页</h1>
+    <label for="username">用户名</label><input id="username" name="username" placeholder="请输入用户名">
+    <label for="password">密码</label><input id="password" name="password" type="password" placeholder="请输入密码">
+    <label for="role">角色</label><select id="role" name="role"><option value="tester">测试人员</option><option value="admin">管理员</option></select>
+    <div id="hoverTarget" data-record-hover="true">悬停目标</div>
+    <a id="nextLink" href="/next.html">下一页</a>
+    <button id="loginBtn" data-testid="login-button" onclick="document.querySelector('#message').textContent='保存成功'; document.querySelector('#result').textContent=document.querySelector('#username').value">登录并保存</button>
+    <p id="message"></p><p id="result"></p>
+  </main>
+</body>
+</html>

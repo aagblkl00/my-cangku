@@ -1,0 +1,78 @@
+# ============================================
+# 北极星 / Lodestar  .gitignore
+# 目的：只把「源码」传上 GitHub，运行产物、依赖、大文件一律排除
+# ============================================
+
+# ---------- 运行产物：可能含明文密码 / 客户页面截图，绝对不能传 ----------
+data/
+*.db
+*.sqlite
+*.sqlite3
+runs/
+traces/
+screenshots/
+reports/
+logs/
+downloads/
+*.log
+
+# ---------- Python 依赖与缓存 ----------
+.venv/
+.venv-build/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.pytest_tmp_klein2/
+.pytest_tmp_klein4/
+.mission_preview/
+.mission_preview_v5/
+.mission_preview_v5.pid
+.mission_smoke/
+.mission_smoke_v5/
+.mission_smoke_v5.pid
+
+# ---------- 前端依赖与构建产物 ----------
+node_modules/
+frontend/node_modules/
+frontend/dist/
+dist/
+.vite/
+*.local
+
+# ---------- Tauri / Rust 构建产物（单个 .rlib 就有上百 MB）----------
+frontend/src-tauri/target/
+src-tauri/target/
+frontend/src-tauri/gen/schemas/
+target/
+*.rlib
+*.rmeta
+
+# ---------- 打包与安装包：走 GitHub Releases 发，不进仓库 ----------
+build/
+backups/
+*.pkg
+*-sidecar-*.exe
+browsers/
+
+# ---------- 编辑器 / 系统 ----------
+.vscode/
+.idea/
+Thumbs.db
+Desktop.ini
+
+# ---------- 本地配置与密钥（有就排除，别改） ----------
+.env
+.env.*
+*.key
+*.pem
+*secret*
+*token*
+!requirements*.txt
+
+# ---------- 本地构建辅助与残留（保留在磁盘，不进仓库） ----------
+klein/
+*.tsbuildinfo
+frontend/src/App.tsx.bak
+frontend/src-tauri/tauri.build-nohook.json

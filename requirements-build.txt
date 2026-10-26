@@ -1,0 +1,3 @@
+# Build-time dependencies (not required by end users)
+pyinstaller>=6.15,<7
+pytest>=8.4,<10
