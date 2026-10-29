@@ -1,6 +1,14 @@
-﻿# Lodestar 自动化测试工作台
+# Lodestar 自动化测试工作台
 
 桌面化的自动化测试 IDE：以真实业务链路为中心，把测试用例、流程录制、执行证据、缺陷草稿和 CI 门禁串成一条可持续演进的测试闭环。数据与运行产物保存在本机，界面为 Windows 桌面客户端形态（单层标题栏、多编辑器标签、命令中心、托盘常驻）。
+
+## 下载安装包
+
+Windows 安装包（NSIS）通过 GitHub Releases 发布：
+
+- 最新版：https://github.com/aagblkl00/my-cangku/releases/latest
+- 文件名形如 `Lodestar_<版本>_x64-setup.exe`
+- 下载后建议按对应 Release 页面公布的 SHA-256 校验（见「安全说明」）
 
 ## 功能特性
 
@@ -42,7 +50,7 @@ npm install
 npm run dev
 ```
 
-浏览器打开 http://127.0.0.1:5173/（网页界面仅用于开发调试，发布版为纯桌面客户端）。
+浏览器打开 `http://127.0.0.1:5173/`（仅限开发调试：该地址指向你自己电脑上刚启动的本地服务，两个终端都要保持运行；发布版是纯桌面客户端，没有公网地址）。
 
 ## 打包（Windows）
 
@@ -54,9 +62,27 @@ npm install
 npm run tauri build
 ```
 
-安装包输出在 `frontend/src-tauri/target/release/bundle/nsis/`。便携布局为 `app/Lodestar.exe` + 同级 `data/` 数据目录。
+安装包输出在 `frontend/src-tauri/target/release/bundle/nsis/`。便携布局为 `app/Lodestar.exe` + 同级 `data/` 数据目录。发布到 Releases 时，建议在 Release 说明中附带安装包 SHA-256 校验值。
+
+## 安全说明（下载与首次运行）
+
+安装包暂未做代码签名，首次下载/运行可能遇到「未知发布者」提示，属正常现象而非病毒：
+
+- 浏览器拦截：Edge / Chrome 提示「此类型文件可能会损害你的电脑」→ 选择「保留」
+- SmartScreen：提示「Windows 已保护你的电脑」→ 点「更多信息」→「仍要运行」
+- Defender 误报：Windows 安全中心 → 保护历史记录 → 还原；确认为误报可到 https://www.microsoft.com/wdsi/filesubmission 提交
+
+完整性校验（以对应 Release 页面公布的值为准）：
+
+```powershell
+Get-FileHash .\Lodestar_1.0.0_x64-setup.exe -Algorithm SHA256
+```
+
+```cmd
+certutil -hashfile Lodestar_1.0.0_x64-setup.exe SHA256
+```
 
 ## 开源与许可
 
 - 代码以 MIT 协议开源，见 `LICENSE`。
-- `frontend/src-tauri/icons/` 与 `frontend/public/brand/` 中的品牌图标、壁纸为ChatGPT 生成的 AI 图像，由项目方持有使用权，可直接随项目分发。
+- `frontend/src-tauri/icons/` 与 `frontend/public/brand/` 中的品牌图标、壁纸为 ChatGPT 生成的 AI 图像，由项目方持有使用权，可直接随项目分发。
